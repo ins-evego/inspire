@@ -35,6 +35,5 @@ Route::get('inspire', function (\App\Services\TokenService $tokenService) {
         \GuzzleHttp\RequestOptions::BODY => json_encode($body)
     ]);
     $result = json_decode($response->body(), true);
-    $options = app('request')->header('accept-charset') == 'utf-8' ? JSON_UNESCAPED_UNICODE : null;
-    return response()->json(['message' => $result['result']['alternatives'][0]['message']['text']]);
+    return response()->json(['message' => $result['result']['alternatives'][0]['message']['text']], 200, ['Content-type' => 'application/json'],JSON_UNESCAPED_UNICODE);
 });
