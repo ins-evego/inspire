@@ -34,5 +34,6 @@ Route::get('inspire', function (\App\Services\TokenService $tokenService) {
     ])->send('POST', 'https://llm.api.cloud.yandex.net/foundationModels/v1/completion', [
         \GuzzleHttp\RequestOptions::BODY => json_encode($body)
     ]);
-    dd($response->body());
+    $result = json_decode($response->body(), true);
+    return response()->json(['message' => $result['result']['alternatives'][0]['message']['text']]);
 });
